@@ -86,5 +86,47 @@ namespace CrudAssessment.Controllers
             }
             return View(Book);
         }
+
+        public ActionResult CreateBook()
+        {
+            return View();
+        }
+
+        // POST: Home/CreateBook
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateBook([Bind(Include = "book_id,title,author,price,quantity_available")] BookModelView bookModelView)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    using (SqlConnection con = new SqlConnection(connString))
+                    {
+                        
+                        string query = "insert into Books values (@title, @author,@price,@quantity_available)";
+                        using (SqlCommand cmd = new SqlCommand(query, con))
+                        {
+                            cmd.Connection = con;
+                            cmd.Parameters.AddWithValue("@title", bookModelView.title);
+                            cmd.Parameters.AddWithValue("@author", bookModelView.author);
+                            cmd.Parameters.AddWithValue("@price", bookModelView.price);
+                            cmd.Parameters.AddWithValue("@quantity_available", bookModelView.quantity_available);
+                            con.Open();
+                            cmd.ExecuteNonQuery();
+                            con.Close();
+                        }
+                    }
+                    return RedirectToAction("Index");
+                }
+            }
+            catch
+            {
+            }
+            return View(bookModelView);
+        }
+
+
+
     }
 }
