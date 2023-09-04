@@ -12,7 +12,7 @@ namespace CrudAssessment.Controllers
     public class HomeController : Controller
     {
         // GET: Home
-        string connString = "Data Source=DESKTOP-QTH4LPK\\SQLEXPRESS;Initial Catalog=store2;Integrated Security=True;";
+        string connString = "Data Source=DESKTOP-QTH4LPK\\SQLEXPRESS;Initial Catalog=online_bookstore;Integrated Security=True";
         public ActionResult Index()
         {
             List<BookModelView> Books = new List<BookModelView>();
