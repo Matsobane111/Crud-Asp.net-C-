@@ -110,6 +110,7 @@
     <Content Include="Views\Home\BookDetails.cshtml" />
     <Content Include="Views\Home\CreateBook.cshtml" />
     <Content Include="Views\Home\UpdateBook.cshtml" />
+    <Content Include="Views\Home\DeleteBook.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

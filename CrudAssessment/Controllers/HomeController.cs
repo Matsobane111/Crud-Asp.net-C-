@@ -195,6 +195,58 @@ namespace CrudAssessment.Controllers
         }
 
 
+        public ActionResult DeleteBook(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            BookModelView Book = new BookModelView();
+            string query = "SELECT * FROM Books where book_id=" + id;
+            using (SqlConnection con = new SqlConnection(connString))
+            {
+                using (SqlCommand cmd = new SqlCommand(query))
+                {
+                    cmd.Connection = con;
+                    con.Open();
+                    using (SqlDataReader sdr = cmd.ExecuteReader())
+                    {
+                        while (sdr.Read())
+                        {
+                            Book = new BookModelView
+                            {
+                                book_id = Convert.ToInt32(sdr["book_id"]),
+                                title = Convert.ToString(sdr["title"]),
+                                author = Convert.ToString(sdr["author"]),
+                                price = Convert.ToString(sdr["price"]),
+                                quantity_available = Convert.ToInt32(sdr["quantity_available"])
+                            };
+                        }
+                    }
+                    con.Close();
+                }
+            }
+            return View(Book);
+        }
+
+  
+        [HttpPost, ActionName("DeleteBook")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteBook(int id)
+        {
+            using (SqlConnection con = new SqlConnection(connString))
+            {
+                string query = "Delete FROM Books where book_id='" + id + "'";
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            return RedirectToAction("Index");
+        }
+
 
     }
 }
