@@ -4,12 +4,17 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Book List</h2>
+<style>
+    table, th, td {
+        border: 1px solid black;
+    }
+</style>
 
 <p>
     @Html.ActionLink("Create New", "CreateBook")
 </p>
-<table class="table">
+<table style="width:100%">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.book_id)

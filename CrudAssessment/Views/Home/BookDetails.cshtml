@@ -7,48 +7,44 @@
 <h2>BookDetails</h2>
 
 <div>
-    <h4>BookModelView</h4>
+    <h4>Book Details</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.book_id)
-        </dt>
-
-        <dd>
+            <span style="margin-left:200px;">:</span>
             @Html.DisplayFor(model => model.book_id)
-        </dd>
+        </dt>
 
         <dt>
             @Html.DisplayNameFor(model => model.title)
+            <span style="margin-left:225px;">:</span>
+            @Html.DisplayFor(model => model.title)
         </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.title)
-        </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.author)
+            <span style="margin-left:210px;">:</span>
+            @Html.DisplayFor(model => model.author)
         </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.author)
-        </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.price)
+            <span style="margin-left:222px;">: R</span>
+            @Html.DisplayFor(model => model.price)
+
         </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.price)
-        </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.quantity_available)
+            <span style="margin-left:134px;">:</span>
+            @Html.DisplayFor(model => model.quantity_available)
+
         </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.quantity_available)
-        </dd>
 
     </dl>
 </div>
