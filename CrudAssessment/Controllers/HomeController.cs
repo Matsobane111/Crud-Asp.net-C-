@@ -127,6 +127,74 @@ namespace CrudAssessment.Controllers
         }
 
 
+        public ActionResult UpdateBook(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            BookModelView Book = new BookModelView();
+            string query = "SELECT * FROM Books where book_id=" + id;
+            using (SqlConnection con = new SqlConnection(connString))
+            {
+                using (SqlCommand cmd = new SqlCommand(query))
+                {
+                    cmd.Connection = con;
+                    con.Open();
+                    using (SqlDataReader sdr = cmd.ExecuteReader())
+                    {
+                        while (sdr.Read())
+                        {
+                            Book = new BookModelView
+                            {
+                                book_id = Convert.ToInt32(sdr["book_id"]),
+                                title = Convert.ToString(sdr["title"]),
+                                author = Convert.ToString(sdr["author"]),
+                                price = Convert.ToString(sdr["price"]),
+                                quantity_available = Convert.ToInt32(sdr["quantity_available"])
+                            };
+                        }
+                    }
+                    con.Close();
+                }
+            }
+            if (Book == null)
+            {
+                return HttpNotFound();
+            }
+            return View(Book);
+        }
+
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult UpdateBook([Bind(Include = "book_id,title,author,price,quantity_available")] BookModelView bookModelView)
+        {
+            if (ModelState.IsValid)
+            {
+                string query = "UPDATE Books SET title = @title, author = @author,price=@price,quantity_available=@quantity_available Where book_id =@book_id";
+                using (SqlConnection con = new SqlConnection(connString))
+                {
+                    using (SqlCommand cmd = new SqlCommand(query))
+                    {
+                        cmd.Connection = con;
+                        cmd.Parameters.AddWithValue("@title", bookModelView.title);
+                        cmd.Parameters.AddWithValue("@author", bookModelView.author);
+                        cmd.Parameters.AddWithValue("@price", bookModelView.price);
+                        cmd.Parameters.AddWithValue("@quantity_available", bookModelView.quantity_available);
+                        cmd.Parameters.AddWithValue("@book_id", bookModelView.book_id);
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                        con.Close();
+                    }
+                }
+                return RedirectToAction("Index");
+            }
+            return View(bookModelView);
+        }
+
+
 
     }
 }

@@ -47,7 +47,7 @@
             @Html.DisplayFor(modelItem => item.quantity_available)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new {  id=item.book_id  }) |
+            @Html.ActionLink("Edit", "UpdateBook", new {  id=item.book_id  }) |
             @Html.ActionLink("Details", "BookDetails", new {  id=item.book_id  }) |
             @Html.ActionLink("Delete", "Delete", new {  id=item.book_id })
         </td>
