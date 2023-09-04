@@ -1,0 +1,57 @@
+﻿@model IEnumerable<CrudAssessment.Models.BookModelView>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.book_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.author)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.quantity_available)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.book_id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.author)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.quantity_available)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new {  id=item.book_id  }) |
+            @Html.ActionLink("Details", "BookDetails", new {  id=item.book_id  }) |
+            @Html.ActionLink("Delete", "Delete", new {  id=item.book_id })
+        </td>
+    </tr>
+}
+
+</table>
